@@ -1,0 +1,55 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+$colorW: white;
+$bgImage: 'bg-winter.jpg';
+$mainFont: Arial;
+$size: 1em;
+
+body{
+    font-family: $mainFont;
+    background-image: url(bg-winter.jpg);
+    overflow: hidden;
+}
+
+h1{
+    color: $colorW;
+    font-size: 5 * $size;
+    padding: $size;
+}
+
+// FLAKES
+
+.flake{
+    width: 1.2 * $size;
+    height: 1.2 * $size;
+    border-radius: 100%;
+    background: radial-gradient( circle at right , 
+        $colorW 5%,
+        transparentize($colorW, 1));
+        position: absolute;
+
+        mix-blend-mode: screen;
+
+        // working with each flake
+        @for $n from 1 through 51{
+
+            &:nth-child(#{$n}) {
+                top: - 1.5 * $size;
+                left: 1vw * random(100);
+
+                $scale: 0.1 * random(10); 
+                transform: scale( $scale );
+
+                animation: falling 10s linear infinite;
+                animation-duration: 5s / $scale;
+            
+                animation-delay: 1s * random(20);
+
+                @keyframes falling {
+                    from {top: -1.5 * $size;}
+                    to {top:101vh;}   
+                }
+            }
+        }
+
+}
